@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unmasked | Security Services</title>
+    <title>CyberGuard | Security Services</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
@@ -30,17 +30,18 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#"><i class="fas fa-shield-alt text-accent"></i> U C S <span class="text-accent"></span></a>
+            <a class="navbar-brand fw-bold" href="#"><i class="fas fa-shield-alt text-accent"></i> U S C<span class="text-accent"></span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+					<li class="nav-item" ><a class="nav-link text-white ms-lg-3" href="index.html" >Home</a></li>
+                    <li class="nav-item" ><a class="nav-link" href="#about" >About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
                     <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
                     <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact Us</a></li>
                 </ul>
             </div>
         </div>
@@ -72,7 +73,6 @@ We bridge the gap between academic knowledge and real-world cybersecurity implem
                         <li><i class="fas fa-check-circle text-info me-2"></i> Certified Ethical Hackers</li>
                         <li><i class="fas fa-check-circle text-info me-2"></i> Rapid Incident Response</li>
                     </ul>
-					<span class="badge bg-primary mb-2">Read More ....</span>
                 </div>
             </div>
         </div>
@@ -85,14 +85,14 @@ We bridge the gap between academic knowledge and real-world cybersecurity implem
                 <div class="col-md-4">
                     <div class="card h-100 p-4 text-center">
 					
-                        <i class="fas fa-shield-alt fa-3x text-accent mb-3"></i>
+                        <div class="fa-3x"><i class="fas fa-bug fa-beat text-accent mb-3"></i></div>
                         <h4>Penetration Testing</h4>
                         <p class="text-muted">Identifying vulnerabilities before hackers do.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card h-100 p-4 text-center">
-                        <i class="fas fa-shield-alt fa-3x text-accent mb-3"></i>
+                        <div class="fa-3x"><i class="fas fa-fingerprint fa-beat text-accent mb-3"></i></div>
                         <h4>Penetration Testing & VAPT</h4>
                         <p class="text-muted">Identify vulnerabilities before attackers exploit them.
 Comprehensive web, network, API, and cloud security testing.</p>
@@ -100,7 +100,7 @@ Comprehensive web, network, API, and cloud security testing.</p>
                 </div>
                 <div class="col-md-4">
                     <div class="card h-100 p-4 text-center">
-                        <i class="fas fa-shield-alt fa-3x text-accent mb-3"></i>
+                        <div class="fa-3x"><i class="fas fa-eye fa-beat text-accent mb-3"></i></div>
                         <h4>Security Operations & Threat Monitoring
 </h4>
                         <p class="text-muted">Proactive detection and monitoring using SIEM and log analysis frameworks.</p>
@@ -109,7 +109,7 @@ Comprehensive web, network, API, and cloud security testing.</p>
                 </div>
 				<div class="col-md-4">
                     <div class="card h-100 p-4 text-center">
-                        <i class="fas fa-shield-alt fa-3x text-accent mb-3"></i>
+                        <div class="fa-3x"><i class="fas fa-shield-alt fa-beat text-accent mb-3"></i></div>
                         <h4>Risk, Compliance & Governance
 </h4>
                         <p class="text-muted">ISO 27001 readiness, NIST framework alignment, CERT-In advisory, and policy drafting.
@@ -118,7 +118,7 @@ Comprehensive web, network, API, and cloud security testing.</p>
                 </div>
                 <div class="col-md-4">
                     <div class="card h-100 p-4 text-center">
-                        <i class="fas fa-shield-alt fa-3x text-accent mb-3"></i>
+                        <div class="fa-3x"><i class="fas fa-file-signature fa-beat text-accent mb-3"></i></div>
                         <h4>Incident Response & Digital Forensics
 </h4>
                         <p class="text-muted">Breach investigation, malware analysis, and incident response planning.
@@ -127,7 +127,7 @@ Comprehensive web, network, API, and cloud security testing.</p>
                 </div>
                 <div class="col-md-4">
                     <div class="card h-100 p-4 text-center">
-                        <i class="fas fa-shield-alt fa-3x text-accent mb-3"></i>
+                        <div class="fa-3x"><i class="fas fa-user-secret fa-beat text-accent mb-3"></i></div>
                         <h4>Cybersecurity Training Programs
 </h4>
                         <p class="text-muted">Industry-aligned ethical hacking and SOC analyst training.</p>
@@ -223,7 +223,7 @@ Comprehensive web, network, API, and cloud security testing.</p>
         </div>
     </section>
 
-     <section id="contact">
+     <section id="contact"class="bg-black section-padding">
         <div class="container">
             <div class="row g-5">
                 <div class="col-md-5">
@@ -248,11 +248,11 @@ Comprehensive web, network, API, and cloud security testing.</p>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" placeholder="Xyz Xyz">
+                                    <input type="text" class="form-control" placeholder="John Doe">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Email Address</label>
-                                    <input type="email" class="form-control" placeholder="xyz@example.com">
+                                    <input type="email" class="form-control" placeholder="john@example.com">
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -273,7 +273,7 @@ Comprehensive web, network, API, and cloud security testing.</p>
 
 
     <footer class="py-4 text-center border-top border-secondary mt-5">
-        <p class="text-muted">&copy; 2026 U C S. All rights reserved.</p>
+        <p class="text-muted">&copy; 2026 U S C. All rights reserved.</p>
 		<div class="mt-4">
                         <a href="#" class="btn btn-outline-light btn-sm me-2"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="btn btn-outline-light btn-sm me-2"><i class="fab fa-linkedin"></i></a>

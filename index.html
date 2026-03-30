@@ -3,658 +3,485 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unmasked Cyber Security | Elite Security Operations</title>
+    <title>Unmasked Cyber Security | Hazaribagh's Elite Defense</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
     <style>
-	/* Smaller, more compact team cards */
-        .team-card-small {
-            background: rgba(10, 10, 10, 0.8);
-            border: 1px solid rgba(255, 170, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .team-card-small:hover {
-            border-color: var(--hacker-orange);
-            transform: translateY(-3px);
-            box-shadow: 0 0 15px rgba(255, 170, 0, 0.2);
-        }
-        /* Scanning line animation for the profile */
-        .scan-line {
-            width: 100%;
-            height: 1px;
-            background: var(--hacker-orange);
-            position: absolute;
-            top: 0;
-            z-index: 10;
-            opacity: 0.7;
-            box-shadow: 0 0 8px var(--hacker-orange);
-            animation: scan-move 4s linear infinite;
-        }
-        @keyframes scan-move {
-            0% { top: 0; }
-            100% { top: 100%; }
-        }
-	.social-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 170, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-        .social-btn:hover {
-            border-color: var(--hacker-orange);
-            box-shadow: 0 0 15px rgba(255, 170, 0, 0.3);
-            transform: translateY(-3px);
-            color: var(--hacker-orange);
-        }
-        :root {
-            --hacker-orange: #ffaa00;
-            --hacker-blue: #00f2ff;
-            --deep-black: #020203;
-        }
-        html { scroll-behavior: smooth; }
-        body {
-            background-color: var(--deep-black);
-            color: #ffffff;
-            font-family: 'Space+Grotesk', sans-serif;
-            overflow-x: hidden;
-            cursor: crosshair;
-        }
-        .mono { font-family: 'Fira Code', monospace; }
-        
-        /* Navbar Transitions */
-       #main-nav {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother transition */
-    background: transparent;
+	@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
-        #main-nav.scrolled {
-            background: rgba(2, 2, 3, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 170, 0, 0.2);
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
+        :root {
+            --neon-green: #00ff41;
+            --dark-bg: #0a0a0c;
+            --glass: rgba(255, 255, 255, 0.03);
         }
 
-        /* Mobile Menu Overlay */
+        body {
+            background-color: var(--dark-bg);
+            color: #e2e8f0;
+            font-family: 'Space Grotesk', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .mono { font-family: 'Fira Code', monospace; }
+
+        /* Glassmorphism */
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 255, 65, 0.1);
+        }
+
+        /* Animations */
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(1000%); }
+        }
+
+        .scan-line {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--neon-green), transparent);
+            position: absolute;
+            opacity: 0.2;
+            animation: scan 8s linear infinite;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 65, 0.08) 0%, transparent 70%);
+        }
+
+        .course-card:hover {
+            border-color: var(--neon-green);
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.15);
+        }
+
+        /* Fixed Mobile Nav Sidebar */
         #mobile-menu {
             transform: translateX(100%);
             transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            visibility: hidden; /* Fixed: Prevents clicking hidden links */
         }
-        #mobile-menu.active {
-            transform: translateX(0);
-        }
-
-        /* Existing Styles */
-        #cursor-glow {
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(255,170,0,0.07) 0%, transparent 70%);
-            position: fixed; pointer-events: none; z-index: 1; transform: translate(-50%, -50%);
+        #mobile-menu.active { 
+            transform: translateX(0); 
+            visibility: visible;
         }
 
-        @keyframes scanline-move {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 100%; }
-        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0c; }
+        ::-webkit-scrollbar-thumb { background: var(--neon-green); border-radius: 10px; }
 
-        body::before {
-            content: " ";
-            display: block;
+        #loader {
             position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.01), rgba(0, 0, 118, 0.04));
-            z-index: 100;
-            background-size: 100% 4px, 3px 100%;
-            pointer-events: none;
-            animation: scanline-move 20s linear infinite;
-        }
-
-        @keyframes glitch {
-            0% { text-shadow: 2px 0 red, -2px 0 blue; }
-            20% { text-shadow: -2px 0 red, 2px 0 blue; }
-            100% { text-shadow: 2px 0 red, -2px 0 blue; }
-        }
-        .glitch-hover:hover { animation: glitch 0.3s infinite; }
-
-        .hero-gradient {
-            background: linear-gradient(to right, rgba(2, 2, 3, 0.95), rgba(2, 2, 3, 0.6)), 
-                        url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80');
-            background-size: cover; background-position: center;
-        }
-
-        .glow-orange { box-shadow: 0 0 20px rgba(255, 170, 0, 0.4); }
-        .text-glow { text-shadow: 0 0 10px rgba(255, 170, 0, 0.8); }
-        
-        .cyber-card {
-            background: rgba(13, 17, 23, 0.8);
-            border-left: 4px solid var(--hacker-orange);
-            transition: all 0.3s ease;
-            position: relative; overflow: hidden;
-        }
-        .cyber-card:hover {
-            transform: translateY(-5px);
-            background: rgba(20, 25, 35, 1);
-            border-left: 4px solid var(--hacker-blue);
-        }
-
-        .hud-overlay {
-            position: absolute; bottom: -100%; left: 0; width: 100%;
-            background: rgba(0, 242, 255, 0.1); backdrop-blur: 10px;
-            transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            padding: 1rem; border-top: 1px solid var(--hacker-blue); z-index: 10;
-        }
-        .cyber-card:hover .hud-overlay { bottom: 0; }
-
-        @keyframes scroll {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        .animate-scroll { animation: scroll 30s linear infinite; }
-
-        .roadmap-line {
-            background: repeating-linear-gradient(90deg, var(--hacker-orange), var(--hacker-orange) 10px, transparent 10px, transparent 20px);
+            inset: 0;
+            background: #000;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s;
         }
     </style>
 </head>
 <body>
 
-    <div id="cursor-glow"></div>
+    <div id="loader">
+        <div class="text-center">
+            <div class="w-16 h-16 border-4 border-t-[#00ff41] border-gray-800 rounded-full animate-spin mb-4 mx-auto"></div>
+            <p class="mono text-[#00ff41] animate-pulse">DECRYPTING ASSETS...</p>
+        </div>
+    </div>
 
-    <nav id="main-nav" class="fixed top-0 w-full z-[150] py-6 px-6">
+    <nav class="fixed top-0 w-full z-50 glass border-b border-white/10 px-6 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="#" class="text-2xl font-black italic uppercase tracking-tighter group">
-                Unmasked<span class="text-[#ffaa00] group-hover:text-cyan-400 transition">_Security</span>
+            <a href="#" class="text-2xl font-bold tracking-tighter flex items-center gap-2">
+                <i data-lucide="shield-alert" class="text-[#00ff41]"></i>
+                UNMASKED<span class="text-[#00ff41]">_SEC</span>
             </a>
-
-            <div class="hidden md:flex items-center gap-10 mono text-[11px] font-bold uppercase tracking-widest">
-                <a href="#about" class="hover:text-[#ffaa00] transition">About</a>
-                <a href="#roadmap" class="hover:text-[#ffaa00] transition">Roadmap</a>
-                <a href="#courses" class="hover:text-[#ffaa00] transition">Operations</a>
-                <button onclick="toggleSim()" class="border border-[#ffaa00] text-[#ffaa00] px-4 py-2 hover:bg-[#ffaa00] hover:text-black transition skew-x-[-10deg]">
-                    Access_Lab
-                </button>
+            
+            <div class="hidden md:flex gap-8 mono text-sm uppercase">
+                <a href="#about" class="hover:text-[#00ff41] transition">About</a>
+                <a href="#courses" class="hover:text-[#00ff41] transition">Courses</a>
+				<a href="#careers" class="hover:text-[#00ff41] transition">Careers</a>
+				<a href="#team" onclick="toggleMenu()">OPERATIVES</a>
+                <a href="#gallery" class="hover:text-[#00ff41] transition">Ops_Gallery</a>
+                <a href="#contact" class="hover:text-[#00ff41] transition">Contact</a>
             </div>
 
-            <button class="md:hidden text-[#ffaa00]" onclick="toggleMobileMenu()">
-                <i data-lucide="menu" id="menu-icon"></i>
+            <button class="md:hidden text-[#00ff41]" onclick="toggleMenu()">
+                <i data-lucide="menu"></i>
             </button>
         </div>
     </nav>
 
-    <div id="mobile-menu" class="fixed inset-0 bg-black z-[160] md:hidden flex flex-col p-10">
-        <div class="flex justify-end mb-12">
-            <button onclick="toggleMobileMenu()" class="text-[#ffaa00]">
-                <i data-lucide="x"></i>
-            </button>
-        </div>
-        <div class="flex flex-col gap-8 mono text-xl uppercase italic font-black">
-            <a href="#about" onclick="toggleMobileMenu()" class="hover:text-[#ffaa00]">01. About</a>
-            <a href="#roadmap" onclick="toggleMobileMenu()" class="hover:text-[#ffaa00]">02. Roadmap</a>
-            <a href="#courses" onclick="toggleMobileMenu()" class="hover:text-[#ffaa00]">03. Operations</a>
-            <hr class="border-white/10">
-            <button onclick="toggleSim(); toggleMobileMenu();" class="text-left text-[#ffaa00]">
-                > Initializing_Lab_Access
-            </button>
-        </div>
-        <div class="mt-auto mono text-[10px] text-gray-600">
-            SECURE_CONNECTION_ESTABLISHED // NODE_04
-        </div>
-    </div>
-    <section class="relative min-h-screen flex items-center hero-gradient pt-20">
-        <div class="absolute inset-0 bg-black/40"></div>
-        <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
-                        <span class="mono text-sm text-[#ffaa00] tracking-tighter uppercase font-bold">Live Threat: SQL Injection Opportunity</span>
-                    </div>
-                    <h1 class="text-5xl md:text-7xl font-black uppercase italic leading-none mb-6 glitch-hover cursor-default">
-                        Unmask the <br>
-                        <span class="text-[#ffaa00] text-glow">Invisible Threat</span>
-                    </h1>
-                    <p class="text-gray-300 text-lg mono mb-10 border-l-2 border-[#ffaa00] pl-6 max-w-md">
-                        // INITIALIZING UNMASKED CORE...<br>
-                        // ADVANCED PENETRATION TESTING.<br>
-                        // THE ELITE SECURITY OPERATIONS CENTER.
-                    </p>
-                    <div class="flex flex-wrap gap-6">
-                        <button onclick="toggleSim()" class="bg-[#ffaa00] text-black px-10 py-4 font-black uppercase italic skew-x-[-10deg] hover:scale-105 transition glow-orange">
-                            Start Live Lab
-                        </button>
-                    </div>
-                </div>
-
-                <div class="hidden md:block bg-black/90 border border-[#ffaa00]/30 p-6 rounded-sm backdrop-blur-sm shadow-2xl relative">
-                    <div class="flex justify-between items-center mb-4 border-b border-white/10 pb-2">
-                        <span class="mono text-[10px] text-gray-500 uppercase italic">Threat_Engine_v4.2</span>
-                        <div class="flex gap-1.5">
-                            <div class="w-2.5 h-2.5 rounded-full bg-red-500/20"></div>
-                            <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
-                        </div>
-                    </div>
-                    <div id="console-log" class="mono text-[11px] text-green-400/80 h-48 overflow-hidden space-y-1">
-                        <p>> Unmasked System boot sequence complete...</p>
-                        <p>> Loading security protocols...</p>
-                        <p class="text-[#ffaa00]">> Ready for command.</p>
-                    </div>
-                    <div class="mt-4 pt-2 border-t border-white/5 flex gap-2">
-                        <span class="text-green-500 mono text-[11px] font-bold">guest@unmasked:~$</span>
-                        <input type="text" class="bg-transparent border-none outline-none text-white mono text-[11px] w-full" placeholder="type 'help'...">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="stats" class="py-12 border-y border-white/5 bg-black/40">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div class="text-center">
-                <p class="text-[#ffaa00] text-3xl font-black mono italic">500+</p>
-                <p class="text-gray-500 text-[10px] uppercase tracking-widest">Attacks Neutralized</p>
-            </div>
-            <div class="text-center">
-                <p class="text-[#ffaa00] text-3xl font-black mono italic">12k</p>
-                <p class="text-gray-500 text-[10px] uppercase tracking-widest">Students Trained</p>
-            </div>
-            <div class="text-center">
-                <p class="text-[#ffaa00] text-3xl font-black mono italic">100%</p>
-                <p class="text-gray-500 text-[10px] uppercase tracking-widest">Hands-on Labs</p>
-            </div>
-            <div class="text-center">
-                <p class="text-[#ffaa00] text-3xl font-black mono italic">24/7</p>
-                <p class="text-gray-500 text-[10px] uppercase tracking-widest">Global Support</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="py-24 bg-[#020203] relative overflow-hidden border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div class="relative group">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-[#ffaa00] to-blue-500 rounded-sm blur opacity-20 group-hover:opacity-40 transition"></div>
-                    <div class="relative bg-black border border-white/10 p-8 rounded-sm overflow-hidden">
-                        <div class="flex justify-between items-center mb-8">
-                            <span class="mono text-[10px] text-[#ffaa00] animate-pulse">RECON_IN_PROGRESS...</span>
-                            <i data-lucide="database" class="text-white/20 w-5 h-5"></i>
-                        </div>
-                        <div class="space-y-4">
-                            <div class="h-1 bg-white/5 w-full"><div class="bg-[#ffaa00] h-full w-2/3"></div></div>
-                            <div class="h-1 bg-white/5 w-full"><div class="bg-blue-500 h-full w-1/3"></div></div>
-                            <div class="h-1 bg-white/5 w-full"><div class="bg-[#ffaa00] h-full w-4/5"></div></div>
-                        </div>
-                        <div class="mt-8 mono text-[9px] text-gray-500 leading-relaxed">
-                            [OBJECTIVE]: UNMASK_ALL_VULNERABILITIES<br>
-                            [LOCATION]: GLOBAL_OPERATIONS<br>
-                            [STATUS]: ACTIVE
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <h2 class="text-[#ffaa00] mono text-sm mb-2 tracking-[0.5em] font-bold uppercase">Operations_Manifesto</h2>
-                    <h3 class="text-4xl font-bold uppercase italic mb-6">Who is <span class="text-white">Unmasked?</span></h3>
-                    
-                    <div class="space-y-4 text-gray-400 mono text-sm leading-relaxed">
-                        <p>In an era where digital shadows grow longer, <span class="text-white font-bold">Unmasked Cyber Security</span> stands as the final line of kinetic defense.</p>
-                        <p>We are not just a training facility; we are a specialized Security Operations hub. Our team consists of veteran threat hunters and red-team operatives.</p>
-                    </div>
-                    
-                    <div class="mt-8 pt-6 border-t border-white/5 flex gap-10">
-                        <div>
-                            <p class="text-white font-black text-xl italic leading-none">EST. 2024</p>
-                            <p class="text-[9px] uppercase tracking-widest text-gray-600">Foundation_Year</p>
-                        </div>
-                        <div>
-                            <p class="text-white font-black text-xl italic leading-none">ALPHA-1</p>
-                            <p class="text-[9px] uppercase tracking-widest text-gray-600">Auth_Protocol</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="roadmap" class="py-24 bg-black">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-[#ffaa00] mono text-sm mb-2 tracking-[0.5em] font-bold uppercase">Learning_Vector</h2>
-            <h3 class="text-4xl font-bold uppercase italic mb-16">The Career Roadmap</h3>
-            
-            <div class="relative flex flex-col md:flex-row justify-between items-start gap-8">
-                <div class="absolute top-1/2 left-0 w-full h-0.5 roadmap-line hidden md:block -z-10"></div>
-                
-                <div class="bg-[#0a0a0a] border border-white/5 p-6 rounded relative w-full md:w-64 hover:border-[#ffaa00] transition">
-                    <span class="absolute -top-4 left-6 bg-[#ffaa00] text-black mono text-[10px] font-bold px-2 py-1 uppercase">Phase 01</span>
-                    <i data-lucide="search" class="text-[#ffaa00] w-5 h-5 mb-2"></i>
-                    <h5 class="font-bold uppercase mb-2">Network Recon</h5>
-                    <p class="text-gray-500 text-xs italic">Mastering Nmap and traffic analysis.</p>
-                </div>
-                <div class="bg-[#0a0a0a] border border-white/5 p-6 rounded relative w-full md:w-64 hover:border-[#ffaa00] transition">
-                    <span class="absolute -top-4 left-6 bg-[#ffaa00] text-black mono text-[10px] font-bold px-2 py-1 uppercase">Phase 02</span>
-                    <i data-lucide="zap" class="text-[#ffaa00] w-5 h-5 mb-2"></i>
-                    <h5 class="font-bold uppercase mb-2">Exploitation</h5>
-                    <p class="text-gray-500 text-xs italic">Buffer overflows and Metasploit fundamentals.</p>
-                </div>
-                <div class="bg-[#0a0a0a] border border-white/5 p-6 rounded relative w-full md:w-64 hover:border-blue-500 transition">
-                    <span class="absolute -top-4 left-6 bg-blue-500 text-white mono text-[10px] font-bold px-2 py-1 uppercase">Phase 03</span>
-                    <i data-lucide="trending-up" class="text-blue-500 w-5 h-5 mb-2"></i>
-                    <h5 class="font-bold uppercase mb-2">Privilege Escalation</h5>
-                    <p class="text-gray-500 text-xs italic">Root access and post-exploitation persistence.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="courses" class="py-24 bg-[#050505] relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-[#ffaa00] mono text-sm mb-2 tracking-[0.5em] font-bold uppercase">Target_Specializations</h2>
-            <h3 class="text-4xl font-bold uppercase italic mb-12">Select Your Path</h3>
-            
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="cyber-card p-8 group">
-                    <i data-lucide="skull" class="text-[#ffaa00] w-10 h-10 mb-6"></i>
-                    <h4 class="text-xl font-black uppercase mb-3">Ethical Hacking</h4>
-                    <p class="text-gray-500 text-sm mb-6 italic border-l border-white/10 pl-4">Master offensive security.</p>
-                    <div class="hud-overlay mono text-[9px] text-blue-400 grid grid-cols-2 gap-2 uppercase font-bold">
-                        <div>Difficulty: <span class="text-white">Hard</span></div>
-                        <div>Labs: <span class="text-white">40+</span></div>
-                    </div>
-                </div>
-                <div class="cyber-card p-8 group">
-                    <i data-lucide="activity" class="text-[#ffaa00] w-10 h-10 mb-6"></i>
-                    <h4 class="text-xl font-black uppercase mb-3">SOC Analyst</h4>
-                    <p class="text-gray-500 text-sm mb-6 italic border-l border-white/10 pl-4">Real-time monitoring.</p>
-                    <div class="hud-overlay mono text-[9px] text-blue-400 grid grid-cols-2 gap-2 uppercase font-bold">
-                        <div>Difficulty: <span class="text-white">Med</span></div>
-                        <div>Labs: <span class="text-white">25+</span></div>
-                    </div>
-                </div>
-                <div class="cyber-card p-8 group">
-                    <i data-lucide="shield-alert" class="text-[#ffaa00] w-10 h-10 mb-6"></i>
-                    <h4 class="text-xl font-black uppercase mb-3">Incident Response</h4>
-                    <p class="text-gray-500 text-sm mb-6 italic border-l border-white/10 pl-4">Breach containment.</p>
-                    <div class="hud-overlay mono text-[9px] text-blue-400 grid grid-cols-2 gap-2 uppercase font-bold">
-                        <div>Difficulty: <span class="text-white">Elite</span></div>
-                        <div>Labs: <span class="text-white">30+</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div id="sim-modal" class="fixed inset-0 z-[200] hidden bg-black/95 flex items-center justify-center p-6 backdrop-blur-xl">
-        <div class="max-w-lg w-full border border-[#ffaa00] p-8 bg-black shadow-[0_0_50px_rgba(255,170,0,0.2)]">
-            <h2 class="text-[#ffaa00] mono text-xl font-bold mb-4 flex items-center gap-2">
-                <i data-lucide="alert-triangle"></i> ALERT: CRITICAL INTRUSION
-            </h2>
-            <div class="grid grid-cols-2 gap-4">
-                <button onclick="simChoice('Sanitize')" class="border border-[#ffaa00] text-[#ffaa00] p-3 text-xs uppercase mono hover:bg-[#ffaa00] hover:text-black transition">Sanitize Inputs</button>
-                <button onclick="simChoice('Hard Reset')" class="border border-red-500 text-red-500 p-3 text-xs uppercase mono hover:bg-red-500 hover:text-white transition">Hard Reset</button>
-            </div>
-            <button onclick="toggleSim()" class="mt-8 text-gray-600 underline text-[10px] uppercase mono hover:text-white">Abort Simulation</button>
-        </div>
+    <div id="mobile-menu" class="fixed inset-0 bg-black z-[60] p-10 md:hidden flex flex-col gap-8 text-2xl font-bold">
+        <button class="self-end" onclick="toggleMenu()"><i data-lucide="x"></i></button>
+        <a href="#about" onclick="toggleMenu()">ABOUT</a>
+        <a href="#courses" onclick="toggleMenu()">COURSES</a>
+		<a href="#careers" class="hover:text-[#00ff41] transition">Careers</a>
+		<a href="#team" onclick="toggleMenu()">OPERATIVES</a>
+        <a href="#gallery" onclick="toggleMenu()">GALLERY</a>
+        <a href="#contact" onclick="toggleMenu()">CONTACT</a>
     </div>
 
-    <div class="fixed bottom-0 w-full bg-[#ffaa00] text-black py-1 z-[120] overflow-hidden whitespace-nowrap">
-        <div class="inline-block animate-scroll mono text-[10px] font-bold uppercase">
-            [OK] Unmasked Security Active // [ALERT] Zero-day vuln found in Sector 4 // [INFO] Global Threat Level: MODERATE.
-        </div>
-    </div>
-	<section id="team" class="py-20 bg-[#020203] border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between items-end mb-10">
-                <div>
-                    <h2 class="text-[#ffaa00] mono text-[10px] mb-2 tracking-[0.5em] font-bold uppercase">Active_Nodes</h2>
-                    <h3 class="text-3xl font-bold uppercase italic">The Team</h3>
-                </div>
-                <div class="mono text-[10px] text-gray-600 hidden md:block">
-                    TOTAL_OPERATIVES: 04 // STATUS: STEALTH
-                </div>
+    <section class="relative h-screen flex items-center overflow-hidden">
+        <div class="scan-line"></div>
+        <div class="absolute inset-0 z-0">
+            <div id="carousel" class="relative h-full">
+                <div class="slide absolute inset-0 opacity-100 transition-opacity duration-1000 bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80')"></div>
+                <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80')"></div>
+                <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80')"></div>
             </div>
+        </div>
 
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                
-                <div class="team-card-small group">
-                    <div class="relative h-40 bg-zinc-900 overflow-hidden">
-                        <div class="scan-line"></div>
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200" alt="Ghost" class="w-full h-full object-cover grayscale opacity-50 group-hover:opacity-100 transition-all duration-500">
-                    </div>
-                    <div class="p-4 border-t border-white/5">
-                        <h4 class="text-sm font-black uppercase italic text-white group-hover:text-[#ffaa00]">Ghost_Protocol</h4>
-                        <p class="text-[#ffaa00] mono text-[9px] uppercase font-bold mb-2">Red_Team_Lead</p>
-                    </div>
-                </div>
-
-                <div class="team-card-small group">
-                    <div class="relative h-40 bg-zinc-900 overflow-hidden">
-                        <div class="scan-line" style="animation-delay: 2s;"></div>
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200" alt="Neural" class="w-full h-full object-cover grayscale opacity-50 group-hover:opacity-100 transition-all duration-500">
-                    </div>
-                    <div class="p-4 border-t border-white/5">
-                        <h4 class="text-sm font-black uppercase italic text-white group-hover:text-[#ffaa00]">Neural_Net</h4>
-                        <p class="text-[#ffaa00] mono text-[9px] uppercase font-bold mb-2">Forensics</p>
-                    </div>
-                </div>
-
-                <div class="team-card-small group">
-                    <div class="relative h-40 bg-zinc-900 overflow-hidden">
-                        <div class="scan-line" style="animation-delay: 1s;"></div>
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200" alt="ZeroDay" class="w-full h-full object-cover grayscale opacity-50 group-hover:opacity-100 transition-all duration-500">
-                    </div>
-                    <div class="p-4 border-t border-white/5">
-                        <h4 class="text-sm font-black uppercase italic text-white group-hover:text-[#ffaa00]">Zero_Day</h4>
-                        <p class="text-[#ffaa00] mono text-[9px] uppercase font-bold mb-2">Exploit_Dev</p>
-                    </div>
-                </div>
-
-                <div class="team-card-small group">
-                    <div class="relative h-40 bg-zinc-900 overflow-hidden">
-                        <div class="scan-line" style="animation-delay: 3s;"></div>
-                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=200" alt="Cipher" class="w-full h-full object-cover grayscale opacity-50 group-hover:opacity-100 transition-all duration-500">
-                    </div>
-                    <div class="p-4 border-t border-white/5">
-                        <h4 class="text-sm font-black uppercase italic text-white group-hover:text-[#ffaa00]">Cipher_X</h4>
-                        <p class="text-[#ffaa00] mono text-[9px] uppercase font-bold mb-2">Cryptography</p>
-                    </div>
-                </div>
-
+        <div class="relative z-10 max-w-7xl mx-auto px-6 hero-gradient w-full py-20 text-center md:text-left">
+            <p class="mono text-[#00ff41] mb-4 tracking-widest uppercase">Location: Hazaribagh, Jharkhand // India</p>
+            <h1 class="text-5xl md:text-8xl font-bold mb-6 leading-tight">
+                Protecting Your <br>Digital <span class="text-[#00ff41]">World.</span>
+            </h1>
+            <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto md:mx-0">
+                Advanced cybersecurity solutions designed for the modern era. We unmask threats before they reach your data.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
+                <a href="#courses" class="bg-[#00ff41] text-black px-8 py-4 font-bold rounded-sm hover:bg-white transition uppercase text-sm tracking-tighter">Get Started</a>
+                <a href="#contact" class="border border-white/20 px-8 py-4 font-bold rounded-sm hover:bg-white/10 transition uppercase text-sm tracking-tighter">Contact Us</a>
             </div>
         </div>
     </section>
-<section id="contact" class="py-24 bg-black relative">
-    <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-[#ffaa00] mono text-sm mb-2 tracking-[0.5em] font-bold uppercase text-center">Inquiry_Channel</h2>
-        <h3 class="text-4xl font-bold uppercase italic mb-12 text-center">Contact Control</h3>
-        <div id="success-message" class="hidden text-center py-12 bg-[#0a0a0a] border border-[#ffaa00] rounded-sm">
-    <i data-lucide="shield-check" class="w-12 h-12 text-[#ffaa00] mx-auto mb-4"></i>
-    <h4 class="text-xl font-bold uppercase italic text-white">Transmission Successful</h4>
-    <p class="mono text-[10px] text-gray-500 mt-2">REDIRECTING TO SECURE CHANNEL...</p>
-</div>
-        <form id="whatsapp-form" class="space-y-6 bg-[#0a0a0a] border border-white/5 p-8 rounded-sm shadow-2xl">
-            <div class="grid md:grid-cols-2 gap-6">
-                <div>
-                    <label class="mono text-[10px] text-gray-500 uppercase block mb-2">Agent_Name</label>
-                    <input type="text" id="form-name" required class="w-full bg-black border border-white/10 p-3 mono text-sm text-white focus:border-[#ffaa00] outline-none transition">
-                </div>
-                <div>
-                    <label class="mono text-[10px] text-gray-500 uppercase block mb-2">Operation_Type</label>
-                    <select id="form-service" class="w-full bg-black border border-white/10 p-3 mono text-sm text-white focus:border-[#ffaa00] outline-none transition">
-                        <option>Ethical Hacking</option>
-                        <option>SOC Analyst Training</option>
-                        <option>Incident Response</option>
-                        <option>Other Inquiry</option>
-                    </select>
-                </div>
+
+    <section id="about" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="relative">
+                <div class="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-[#00ff41]"></div>
+                <img src="https://images.unsplash.com/photo-1510511459019-5dee997dd3db?auto=format&fit=crop&q=80" alt="Tech" class="rounded-lg filter grayscale hover:grayscale-0 transition duration-500">
             </div>
             <div>
-                <label class="mono text-[10px] text-gray-500 uppercase block mb-2">Encrypted_Message</label>
-                <textarea id="form-message" rows="4" required class="w-full bg-black border border-white/10 p-3 mono text-sm text-white focus:border-[#ffaa00] outline-none transition"></textarea>
+                <h2 class="text-4xl font-bold mb-6">Unmasking Excellence in <span class="text-[#00ff41]">Cyber Defense</span></h2>
+                <p class="text-gray-400 mb-8 leading-relaxed">
+                    Based in the heart of Hazaribagh, Jharkhand, Unmasked Cyber Security Service is dedicated to fortifying the digital landscape of India. Our mission is to empower individuals and businesses with military-grade protection.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                    <div class="flex items-center gap-3 glass p-4 rounded-sm border-l-4 border-[#00ff41]">
+                        <i data-lucide="crosshair" class="text-[#00ff41]"></i>
+                        <span class="font-bold uppercase text-xs">Ethical Hacking</span>
+                    </div>
+                    <div class="flex items-center gap-3 glass p-4 rounded-sm border-l-4 border-[#00ff41]">
+                        <i data-lucide="database" class="text-[#00ff41]"></i>
+                        <span class="font-bold uppercase text-xs">Data Protection</span>
+                    </div>
+                </div>
+                <ul class="space-y-4 mono text-sm text-gray-400">
+                    <li class="flex items-center gap-2"><i data-lucide="check-circle" class="text-[#00ff41] w-4"></i> 24/7 Real-time Monitoring</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check-circle" class="text-[#00ff41] w-4"></i> Certified Security Experts</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check-circle" class="text-[#00ff41] w-4"></i> Local Support in Jharkhand</li>
+                </ul>
             </div>
-            
-            <button type="submit" class="w-full bg-[#ffaa00] text-black py-4 font-black uppercase italic skew-x-[-10deg] hover:scale-[1.02] transition flex items-center justify-center gap-3">
-                <i data-lucide="message-circle" class="w-5 h-5"></i>
-                Transmit via WhatsApp
-            </button>
-        </form>
+        </div>
+    </section>
+
+    <section id="courses" class="py-24 bg-[#0d0d0f] px-6">
+        <div class="max-w-7xl mx-auto text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4 uppercase italic">Elite Training Programs</h2>
+            <p class="mono text-[#00ff41] text-sm">Become a certified digital guardian</p>
+        </div>
+        
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="course-card glass rounded-lg overflow-hidden transition-all duration-300 border border-white/5">
+                <img src="https://images.unsplash.com/photo-1562813733-2a83fdd0574f?auto=format&fit=crop&q=80" class="h-48 w-full object-cover">
+                <div class="p-8">
+                    <h3 class="text-xl font-bold mb-2">Ethical Hacking Basics</h3>
+                    <p class="text-gray-500 text-sm mb-6">Learn the fundamentals of penetration testing and vulnerability assessment.</p>
+                    <button class="w-full bg-white/5 border border-white/10 py-3 hover:bg-[#00ff41] hover:text-black transition mono text-xs font-bold uppercase tracking-widest">Enroll Now</button>
+                </div>
+            </div>
+            <div class="course-card glass rounded-lg overflow-hidden transition-all duration-300 border border-white/5">
+                <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&q=80" class="h-48 w-full object-cover">
+                <div class="p-8">
+                    <h3 class="text-xl font-bold mb-2">Advanced Pentesting</h3>
+                    <p class="text-gray-500 text-sm mb-6">Dive deep into complex exploitation techniques and network bypasses.</p>
+                    <button class="w-full bg-white/5 border border-white/10 py-3 hover:bg-[#00ff41] hover:text-black transition mono text-xs font-bold uppercase tracking-widest">Enroll Now</button>
+                </div>
+            </div>
+            <div class="course-card glass rounded-lg overflow-hidden transition-all duration-300 border border-white/5">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80" class="h-48 w-full object-cover">
+                <div class="p-8">
+                    <h3 class="text-xl font-bold mb-2">Cyber Awareness</h3>
+                    <p class="text-gray-500 text-sm mb-6">Essential training for employees and small business owners to stay safe.</p>
+                    <button class="w-full bg-white/5 border border-white/10 py-3 hover:bg-[#00ff41] hover:text-black transition mono text-xs font-bold uppercase tracking-widest">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+	<section id="team" class="py-32 px-6 max-w-7xl mx-auto">
+    <div class="text-center mb-20">
+        <h2 class="text-5xl font-black uppercase italic mb-4">Elite <span class="text-[#00ff41]">Operatives</span></h2>
+        <p class="mono text-gray-500 text-xs tracking-widest uppercase">The Minds Behind the Shield</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="glass p-8 rounded-xl text-center group border-white/10 hover:border-[#00ff41] transition-all duration-500">
+            <div class="relative w-32 h-32 mx-auto mb-6">
+                <div class="absolute inset-0 rounded-full border-2 border-dashed border-[#00ff41] animate-[spin_10s_linear_infinite]"></div>
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80" 
+                     class="w-full h-full object-cover rounded-full filter grayscale group-hover:grayscale-0 transition duration-500 p-2">
+            </div>
+            <h3 class="text-xl font-bold uppercase tracking-tighter">Cipher_Zero</h3>
+            <p class="text-[#00ff41] mono text-[10px] uppercase mb-6 tracking-widest">Lead Penetration Tester</p>
+            <div class="flex justify-center gap-6 text-gray-500">
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-github"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+        </div>
+
+        <div class="glass p-8 rounded-xl text-center group border-white/10 hover:border-[#00ff41] transition-all duration-500">
+            <div class="relative w-32 h-32 mx-auto mb-6">
+                <div class="absolute inset-0 rounded-full border-2 border-dashed border-[#00ff41] animate-[spin_10s_linear_infinite]"></div>
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80" 
+                     class="w-full h-full object-cover rounded-full filter grayscale group-hover:grayscale-0 transition duration-500 p-2">
+            </div>
+            <h3 class="text-xl font-bold uppercase tracking-tighter">Root_Admin</h3>
+            <p class="text-[#00ff41] mono text-[10px] uppercase mb-6 tracking-widest">Network Architect</p>
+            <div class="flex justify-center gap-6 text-gray-500">
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-github"></i></a>
+            </div>
+        </div>
+
+        <div class="glass p-8 rounded-xl text-center group border-white/10 hover:border-[#00ff41] transition-all duration-500">
+            <div class="relative w-32 h-32 mx-auto mb-6">
+                <div class="absolute inset-0 rounded-full border-2 border-dashed border-[#00ff41] animate-[spin_10s_linear_infinite]"></div>
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80" 
+                     class="w-full h-full object-cover rounded-full filter grayscale group-hover:grayscale-0 transition duration-500 p-2">
+            </div>
+            <h3 class="text-xl font-bold uppercase tracking-tighter">Protocol_X</h3>
+            <p class="text-[#00ff41] mono text-[10px] uppercase mb-6 tracking-widest">Security Analyst</p>
+            <div class="flex justify-center gap-6 text-gray-500">
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
     </div>
 </section>
-   <footer class="bg-[#020202] pt-20 pb-10 border-t border-[#ffaa00]/20 relative">
-        <div class="max-w-7xl mx-auto px-6 relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+<section id="careers" class="py-24 bg-[#0a0a0c] px-6 border-t border-white/5">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-4xl font-bold mb-6 uppercase italic">Join the <span class="text-[#00ff41]">Invisible Fleet</span></h2>
+                <p class="text-gray-400 mb-8 leading-relaxed">
+                    We are constantly scouting for the sharpest minds in Jharkhand. If you have a passion for deconstructing code, identifying vulnerabilities, and protecting the digital frontier, we want to hear from you.
+                </p>
                 
-                <div class="md:col-span-5">
-                    <h2 class="text-2xl font-black italic uppercase tracking-tighter mb-4">
-                        Unmasked<span class="text-[#ffaa00]">_Security</span>
-                    </h2>
-                    <p class="text-gray-500 mono text-xs leading-relaxed max-w-sm mb-8">
-                        // SECURING THE BORDERLESS NETWORK.<br>
-                        // ELITE OFFENSIVE TRAINING & THREAT INTELLIGENCE.<br>
-                        // ESTABLISHED 2024. NODE_01.
-                    </p>
-                    
-                    <div class="flex gap-4">
-					
-                        <a href="#" class="social-btn p-3 rounded-sm group" aria-label="GitHub">
-                            <i data-lucide="github" class="w-5 h-5 text-gray-400 group-hover:text-[#ffaa00]"></i>
-                        </a>
-                        <a href="#" class="social-btn p-3 rounded-sm group" aria-label="Twitter/X">
-                            <i data-lucide="twitter" class="w-5 h-5 text-gray-400 group-hover:text-[#ffaa00]"></i>
-                        </a>
-                        <a href="#" class="social-btn p-3 rounded-sm group" aria-label="LinkedIn">
-                            <i data-lucide="linkedin" class="w-5 h-5 text-gray-400 group-hover:text-[#ffaa00]"></i>
-                        </a>
-                        <a href="#" class="social-btn p-3 rounded-sm group" aria-label="Discord">
-                            <i data-lucide="message-square" class="w-5 h-5 text-gray-400 group-hover:text-[#ffaa00]"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="md:col-span-3">
-                    <h3 class="mono text-[11px] font-bold text-white uppercase tracking-[0.2em] mb-6">Operations</h3>
-                    <ul class="space-y-3 mono text-[10px] text-gray-500 uppercase">
-                        <li><a href="#about" class="hover:text-[#ffaa00] transition inline-flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Core_Manifesto</a></li>
-                        <li><a href="#roadmap" class="hover:text-[#ffaa00] transition inline-flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Training_Vector</a></li>
-                        <li><a href="#courses" class="hover:text-[#ffaa00] transition inline-flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Specialist_Labs</a></li>
-                    </ul>
-                </div>
-
-                <div class="md:col-span-4 border-l border-white/5 pl-8 hidden md:block">
-                    <h3 class="mono text-[11px] font-bold text-white uppercase tracking-[0.2em] mb-6">System_Logs</h3>
-                    <div class="bg-black/50 border border-white/5 p-4 rounded-sm">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                            <span class="mono text-[9px] text-green-500 uppercase">Gateway: Online</span>
+                <div class="space-y-4 mb-10">
+                    <div class="flex items-start gap-4">
+                        <div class="mt-1 bg-[#00ff41]/10 p-2 rounded-sm">
+                            <i data-lucide="terminal" class="text-[#00ff41] w-4 h-4"></i>
                         </div>
-                        <div class="mono text-[9px] text-gray-600 uppercase">
-                            LATENCY: 24ms<br>
-                            PACKET_LOSS: 0%<br>
-                            Uptime: 99.9%
+                        <div>
+                            <h4 class="font-bold text-sm uppercase">Advanced R&D</h4>
+                            <p class="text-xs text-gray-500 mono">Access to cutting-edge security labs and zero-day research.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="mt-1 bg-[#00ff41]/10 p-2 rounded-sm">
+                            <i data-lucide="globe" class="text-[#00ff41] w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm uppercase">Remote-First Culture</h4>
+                            <p class="text-xs text-gray-500 mono">Work from Hazaribagh or anywhere in the world.</p>
                         </div>
                     </div>
                 </div>
+
+                <a href="#contact" class="inline-block bg-[#00ff41] text-black px-8 py-4 font-bold rounded-sm hover:bg-white transition uppercase text-xs tracking-widest">
+                    Submit Your Intel
+                </a>
             </div>
 
-            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-    <p class="mono text-[11px] text-gray-300 uppercase tracking-wide">
-        &copy; 2024 <span class="text-[#ffaa00]">Unmasked Cyber Security</span>. All Rights Reserved.
-    </p>
-    
-    <div class="flex items-center gap-6 mono text-[11px] text-gray-400 uppercase tracking-widest">
-        <a href="#" class="hover:text-[#ffaa00] transition-colors">Terms_of_Service</a>
-        <a href="#" class="hover:text-[#ffaa00] transition-colors">Privacy_Policy</a>
-        <a href="#" class="hover:text-white transition-colors border-l border-white/20 pl-6">Root_Access</a>
+            <div class="glass p-8 rounded-2xl border-2 border-dashed border-[#00ff41]/30 relative overflow-hidden group">
+                <div class="absolute -right-10 -bottom-10 opacity-5 group-hover:opacity-10 transition">
+                    <i data-lucide="users" class="w-64 h-64"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 uppercase">Open Protocols</h3>
+                <ul class="space-y-4 mono text-xs">
+                    <li class="flex justify-between border-b border-white/10 pb-2">
+                        <span class="text-gray-400">Junior Pentester</span>
+                        <span class="text-[#00ff41]">[ACTIVE]</span>
+                    </li>
+                    <li class="flex justify-between border-b border-white/10 pb-2">
+                        <span class="text-gray-400">Security Researcher</span>
+                        <span class="text-[#00ff41]">[ACTIVE]</span>
+                    </li>
+                    <li class="flex justify-between border-b border-white/10 pb-2">
+                        <span class="text-gray-400">Threat Intelligence Lead</span>
+                        <span class="text-red-500">[ENCRYPTED]</span>
+                    </li>
+                </ul>
+                <p class="mt-8 text-[10px] text-gray-500 uppercase tracking-tighter">
+                    * ALL APPLICANTS MUST PASS A STAGE-1 TECHNICAL CHALLENGE.
+                </p>
+            </div>
+        </div>
     </div>
+</section>
+
+    <section id="gallery" class="py-24 px-6 max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-16 uppercase">Training Lab <span class="text-[#00ff41]">Insights</span></h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="overflow-hidden rounded-lg group">
+                <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80" class="aspect-square object-cover transition transform group-hover:scale-110 duration-500">
+            </div>
+            <div class="overflow-hidden rounded-lg group">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80" class="aspect-square object-cover transition transform group-hover:scale-110 duration-500">
+            </div>
+            <div class="overflow-hidden rounded-lg group">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80" class="aspect-square object-cover transition transform group-hover:scale-110 duration-500">
+            </div>
+            <div class="overflow-hidden rounded-lg group">
+                <img src="https://images.unsplash.com/photo-1496096265110-f83ad7f96608?auto=format&fit=crop&q=80" class="aspect-square object-cover transition transform group-hover:scale-110 duration-500">
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-[#0d0d0f] px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16">CLIENT <span class="text-[#00ff41]">INTELLIGENCE</span></h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass p-8 rounded-xl relative">
+                    <div class="text-[#00ff41] mb-4">★★★★★</div>
+                    <p class="italic text-gray-400 mb-6">"Unmasked Security completely overhauled our company's firewall. Excellent service in Hazaribagh!"</p>
+                    <p class="font-bold mono text-sm">— Rajesh K., Jharkhand IT Solutions</p>
+                </div>
+                <div class="glass p-8 rounded-xl relative border-t-2 border-[#00ff41]">
+                    <div class="text-[#00ff41] mb-4">★★★★★</div>
+                    <p class="italic text-gray-400 mb-6">"The Ethical Hacking course is top-notch. Hands-on labs were very challenging and rewarding."</p>
+                    <p class="font-bold mono text-sm">— Amit Singh, Security Aspirant</p>
+                </div>
+                <div class="glass p-8 rounded-xl relative">
+                    <div class="text-[#00ff41] mb-4">★★★★☆</div>
+                    <p class="italic text-gray-400 mb-6">"Fast response times and professional consultants. They know their stuff inside and out."</p>
+                    <p class="font-bold mono text-sm">— Priya Sharma, Retail Manager</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-16">
+            <div class="glass p-10 rounded-2xl">
+    <h2 class="text-3xl font-bold mb-8 uppercase tracking-widest">Transmit Message</h2>
+    <form id="whatsapp-form" class="space-y-6">
+        <input type="text" id="form-name" placeholder="FULL NAME" class="w-full bg-white/5 border-b border-white/20 p-4 outline-none focus:border-[#00ff41] transition mono" required>
+        <input type="email" id="form-email" placeholder="EMAIL ADDRESS" class="w-full bg-white/5 border-b border-white/20 p-4 outline-none focus:border-[#00ff41] transition mono" required>
+        <select id="form-service" class="w-full bg-black border-b border-white/20 p-4 outline-none focus:border-[#00ff41] transition mono text-gray-400">
+            <option>Ethical Hacking</option>
+            <option>Network Security</option>
+            <option>Data Protection</option>
+			<option>Career Inquiry</option>
+        </select>
+        <textarea id="form-message" rows="4" placeholder="MESSAGE ENCRYPTION..." class="w-full bg-white/5 border-b border-white/20 p-4 outline-none focus:border-[#00ff41] transition mono" required></textarea>
+        <button type="submit" class="bg-[#00ff41] text-black w-full py-4 font-bold uppercase tracking-widest hover:bg-white transition">Secure Submit</button>
+    </form>
 </div>
-           
+            
+            <div class="flex flex-col justify-between">
+                <div>
+                    <h2 class="text-3xl font-bold mb-8 uppercase">HQ Command Center</h2>
+                    <div class="space-y-6 mono text-sm text-gray-400">
+                        <div class="flex items-center gap-4">
+                            <i data-lucide="map-pin" class="text-[#00ff41]"></i>
+                            <span>Hazaribagh, Jharkhand, India - 825301</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <i data-lucide="phone" class="text-[#00ff41]"></i>
+                            <span>+91 99000 88XXX</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <i data-lucide="mail" class="text-[#00ff41]"></i>
+                            <span>contact@unmasked-sec.com</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="h-64 rounded-xl overflow-hidden glass mt-8 border border-white/10">
+                    <iframe class="w-full h-full grayscale invert opacity-50" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58544.17493721387!2d85.33405788581788!3d23.99201509951664!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f49c0000000001%3A0x6b8f877f0a8c201d!2sHazaribagh%2C%20Jharkhand!5e0!3m2!1sen!2sin!4v1700000000000" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <footer class="py-12 border-t border-white/10 bg-black px-6 text-center">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-xl font-bold tracking-tighter uppercase">
+                UNMASKED<span class="text-[#00ff41]">_SECURITY</span>
+            </div>
+            
+            <div class="flex gap-8 text-[#00ff41] text-2xl">
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-github"></i></a>
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+
+            <p class="mono text-[10px] text-gray-600">© 2026 UNMASKED CYBER SECURITY SERVICE</p>
         </div>
     </footer>
 
-    <script>
+   <script>
+        // Initialize Lucide Icons
         lucide.createIcons();
-        
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('main-nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
 
-        // Mobile Menu Toggle
-        function toggleMobileMenu() {
+        // Fixed Mobile Menu Toggle Logic
+        function toggleMenu() {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('active');
-            // Toggle body scroll
             document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
         }
 
-        // Glow effect
-        const glow = document.getElementById('cursor-glow');
-        window.addEventListener('mousemove', (e) => {
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
+        // Corrected WhatsApp Form Logic
+        document.getElementById('whatsapp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const phoneNumber = "919900088000"; // Replace with your real number
+            const name = document.getElementById('form-name').value;
+            const service = document.getElementById('form-service').value;
+            const msg = document.getElementById('form-message').value;
+            const text = `*New Lead from Unmasked Security*%0A*Name:* ${name}%0A*Service:* ${service}%0A*Message:* ${msg}`;
+            window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
         });
 
-        // Console Log
-        const log = document.getElementById('console-log');
-        const msgs = ["> [INFO] Encrypting local storage...", "> [WARN] Unknown node sync.", "> [OK] HANDSHAKE SUCCESS.", "> [CRIT] Firewall bypass blocked."];
+        // Loader Sequence
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
+            }, 1000);
+        });
+
+        // Hero Carousel Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
         setInterval(() => {
-            if(!log) return;
-            const p = document.createElement('p');
-            p.textContent = msgs[Math.floor(Math.random() * msgs.length)];
-            log.appendChild(p);
-            if (log.childNodes.length > 10) log.removeChild(log.firstChild);
-        }, 2500);
+            slides[currentSlide].classList.replace('opacity-100', 'opacity-0');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.replace('opacity-0', 'opacity-100');
+        }, 5000);
 
-        function toggleSim() {
-            document.getElementById('sim-modal').classList.toggle('hidden');
-        }
-
-        function simChoice(choice) {
-            alert(choice === 'Sanitize' ? 'SUCCESS: Threat Neutralized.' : 'SYSTEM FAILURE.');
-            toggleSim();
-        }
-		document.getElementById('whatsapp-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Replace this with your actual WhatsApp number (include country code, no + or spaces)
-    const phoneNumber = "1234567890"; 
-    
-    const name = document.getElementById('form-name').value;
-    const service = document.getElementById('form-service').value;
-    const message = document.getElementById('form-message').value;
-    
-    // Construct the encoded WhatsApp URL
-    const text = `*New Inquiry from Unmasked Security*%0A%0A` +
-                 `*Name:* ${name}%0A` +
-                 `*Interest:* ${service}%0A` +
-                 `*Message:* ${message}`;
-    
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${text}`;
-    
-    // Open in a new tab
-    window.open(whatsappUrl, '_blank');
-});
-document.getElementById('whatsapp-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // UI Feedback
-    document.getElementById('whatsapp-form').classList.add('hidden');
-    document.getElementById('success-message').classList.remove('hidden');
-
-    const phoneNumber = "1234567890"; 
-    const name = document.getElementById('form-name').value;
-    const service = document.getElementById('form-service').value;
-    const message = document.getElementById('form-message').value;
-    
-    const text = `*New Inquiry*%0A*Name:* ${name}%0A*Interest:* ${service}%0A*Message:* ${message}`;
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${text}`;
-    
-    setTimeout(() => { window.open(whatsappUrl, '_blank'); }, 800);
-});
+        // Smooth Scrolling for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
     </script>
 </body>
 </html>
